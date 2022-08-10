@@ -1,0 +1,5 @@
+# Scratch files/directories are for my rough notes, which I don't always want pushed.
+#
+# This matches files and folders which either start with "(Scratch)" or "#" - it will not match if
+# the path name has either "(Scratch)" or "#" in the middle any of the file/folder names in the path.
+(\/|^)(\(Scratch\).*|#.*)
