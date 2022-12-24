@@ -43,9 +43,7 @@ $$
 d(x, y) = 2^{1-n},\qquad \text{where $n$ is the first position where $x_n\neq y_n$}
 $$
 
-## Dimension Groups
-
-### Ordered Groups and Inductive Limits
+## Ordered Groups and Inductive Limits
 
 Recall that a **(linearly) ordered group** is a group equipped with a (total) order $\le$ which is translation-invariant: whenever $a\le b$, we also have $ca\le cb$ and $ac\le bc$ for all $c\in G$ (for left/right translation invariance respectively). We will work primarily with left-invariant orders, since a left-invariant order can be obtained from a right-invariant order by considering $g\le_{\text{left}} h$ iff $h^{-1}\le_{\text{right}} g^{-1}$. We remark that in order for a group $G$ to be linearly orderable, $G$ must be torsion-free (since if $g^n = e$ and say $e\le g$, then we obtain a chain $e\le g\le g^2\le \cdots\le g^{n-1}\le e$, forcing $g = e$).
 
@@ -151,3 +149,91 @@ The Riesz interpolation property is a relaxation of this lattice requirement: in
 
 
 
+
+
+
+
+
+$$
+\begin{matrix}
+\theta(a_k^1a_\ell^2*) & = & b_{r_1}^1a_{\rho_1(k,\ell)}^2* & \qquad & k\in\{1, ..., r_1\},\ \ell\in\{1,...,d_2\} \\
+\theta(a_k^1a_\ell^2*) & = & b_k^1a_{r_2-d_2+\ell}^2* & & k\in\{1,...,r_1\},\ \ell\in\{d_2+1,...,q_2-r_2\} \\
+\theta(b_k^1b_\ell^2*) & = & a_{r_1}^1b_{\rho_1(k,\ell)}^2* & & k\in\{1,...,r_1\}, \ell\in\{1,...,d_2\}
+\end{matrix}
+$$
+At this stage, we've defined $\theta$ for all $a_k^1a_\ell^2*$, all $b_k^1b_\ell^2*$, and some mixed paths. What we're *missing* is:
+$$
+\begin{matrix}
+b_k^1a_\ell^2*,& \ k\in\{1,...,r_1-1\},& \ \ell\in\{1,...,r_2\} \\
+a_k^1b_\ell^2*,& \ k\in\{1,...,r_1-1\},& \ell\in\{1,...,r_2\}
+\end{matrix}
+$$
+We continue as follows. For all $i\in\{1,...,r_1-1\}$, define
+$$
+\begin{matrix}
+\theta(b_i^1a_k^2a_\ell^3*) & = & a_i^1b_{r_2}^2a_{\rho_2(k,\ell)}^3* & \qquad & k\in\{1,...r_2\},\ \ell\in\{1,...,d_3\} \\
+\theta(b_i^1a_k^2a_\ell^3*) & = & a_i^1b_k^2a_{r_3-d_3+\ell}^3* & & k\in\{1,...,r_2\},\ \ell\in\{d_3+1,...,q_3-r_3\} \\
+\theta(a_i^1b_k^2b_\ell^3*) & = & b_i^1a_{r_2}^2b_{\rho_2(k,\ell)}^3* & & k\in\{1,...,r_2\},\ \ell\in\{1,...,d_3\}
+\end{matrix}
+$$
+At this stage, we've defined $\theta$ for *all* $b_i^1a_k^2a_\ell^3*$, *all* $a_i^1b_k^2b_\ell^3*$ (if it seems like some cases are missing in the second-stage definition, go back and check the first stage), and, again, some mixed paths. What we're missing are some paths of the form $a_i^1b_k^2a_\ell^3*$ and $b_i^1a_k^2b_\ell^3*$. In particular:
+$$
+\begin{matrix}
+a_i^1b_k^2a_\ell^3* & i\in\{1,...,r_1-1\},\ & k\in\{1,...,r_2-1\},\ & \ell\in\{1,...,r_3\} \\
+b_i^1a_k^2b_\ell^3*
+\end{matrix}
+$$
+For all $i_1\in\{1, ..., r_1-1\}$, $i_2\in\{1,...,r_2-1\}$, define
+$$
+\begin{matrix}
+\theta(a_{i_1}^1b_{i_2}^2a_k^3a_\ell^4*) & = & b_{i_1}^1a_{i_2}^2b_{r_3}^3a_{\rho_3(k,\ell)}^4* & \qquad & k\in\{1,...,r_3\},\ \ell\in\{1,...,d_4\} \\
+\theta(a_{i_1}^1b_{i_2}^2a_k^3a_\ell^4*) & = & b_{i_1}^1a_{i_2}^2b_k^3a_{r_4-d_4+\ell}^4* & & k\in\{1,...,r_3\},\ \ell\in\{d_4+1,...,q_4-r_4\}\\
+\theta(b_{i_1}^1a_{i_2}^2b_k^3b_\ell^4*) & = & a_{i_1}^1b_{i_2}^2a_{r_3}^3b_{\rho_3(k,\ell)}^4* & & k\in\{1,...,r_3\},\ \ell\in\{1,...,d_4\}
+\end{matrix}
+$$
+Then what's missing is
+$$
+a_{i_1}^1b_{i_2}^2a_k^3b_\ell^4*,\ b_{i_1}^1a_{i_2}^2b_k^3a_\ell^4*,\ i_1\in\{1,..., r_1-1\},\ i_2\in\{1,...,r_2-1\},\ k\in\{1,...,r_3-1\},\ \ell\in\{1,...,r_4\}
+$$
+I think we're starting to get the idea.
+
+
+
+We can describe what $\theta$ does as follows:
+
+1. Given a word $w$, find the longest prefix $p$ taking one of the following forms:
+
+   * $a_{i_1}b_{i_2}a_{i_3}\cdots *$
+   * $b_{i_1}a_{i_2}b_{i_3}\cdots *$
+
+   where $i_\nu\in \{1, ..., r_\nu - 1\}$ for al $\nu$. Write $w = pv$.
+
+2. If $v$ is empty, $\theta(w)$ interchanges $a$'s and $b$'s.
+
+3. 
+
+
+
+
+
+Here's, broadly speaking, what $\theta$ does (this is just a heuristic):
+
+1. It looks at a sequence $x$ and first assesses what the longest prefix of $x$ is which is of the form $abab...$ or $baba...$, where the $a$ and $b$ indices are *not* "final". Let $w$ be this prefix, and $x = wy$.
+2. $\theta$ flips all $a$'s in $w$ to $b$'s, and vice versa, while maintaining the indices.
+3. Next, $\theta$ looks to the first two characters of $y$.
+4. It takes $a_ka_{\text{low }\ell}$ to $b_{\text{final}}a_{\text{low mixture of $k$, $\ell$}}$. Here, there are *not enough* $k$'s and $\ell$'s to obtain all $a$ indices after the $b_{\text{final}}$.
+5. It takes $a_ka_{\text{high }\ell}$ to $b_ka_{\text{high }\ell}$ (without changing $\ell$).
+6. Finally, it takes $b_kb_\ell$ to $a_{\text{``final"}}b_{\text{mixture of $k,\ \ell$}}$. Here, there *are* enough $k$'s and $\ell$'s to obtain every $b$ index after $a_{\text{final}}$.
+
+This definition leaves out $y = b_{k\text{ (not final)}}a_{\text{low }\ell}*$ and $y = a_{k\text{ (not final)}}b_\ell*$, from which we continue to inductively define $\theta$.
+
+
+
+
+
+
+$$
+(R_\ell)_{i_1i_0}(D_{\ell+1})_{i_2i_1} = (R_{\ell+1})_{i_2i_1} \qquad
+\sum_{k=1}^{m_{\ell+1}} (R_\ell)_{ki} \equiv 0\ (\text{mod }r_\ell) \qquad
+\sum_{k=1}^{m_{\ell+1}} (D_\ell)_{ki} \equiv d_\ell\ (\text{mod }r_\ell)
+$$
