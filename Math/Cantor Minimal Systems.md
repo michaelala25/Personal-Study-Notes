@@ -237,3 +237,93 @@ $$
 \sum_{k=1}^{m_{\ell+1}} (R_\ell)_{ki} \equiv 0\ (\text{mod }r_\ell) \qquad
 \sum_{k=1}^{m_{\ell+1}} (D_\ell)_{ki} \equiv d_\ell\ (\text{mod }r_\ell)
 $$
+
+
+## A Worked Example
+
+Let $D := \Z^2\overset{\begin{bmatrix}1 & 1 \\ 1 & 0\end{bmatrix}}{\to}\cdots$ and $r = 2^\infty$, giving torsion component $\Q_{2^\infty}/\Z$. What Bratteli diagram gives $D\oplus\Q_{2^\infty}/\Z$? Let $r_n = 2^n$, and $d_n = 2$ for all $n\in\N$.
+
+At each level aside from the first, there are four vertices: $v_1^\ell, v_2^\ell$, $w_1^\ell$ and $w_2^\ell$. There are $(A_\ell)_{ij} - r^\ell_i$ edges from $v_j^\ell$ to $v_i^{\ell+1}$, $r_i^\ell$ edges from $v_j^\ell$ to $w_i^{\ell+1}$, $(A_\ell)_{ij} - (D_\ell)_{ij}$ from $w_j^\ell$ to $v_i^{\ell+1}$, and $(D_\ell)_{ij}$ from $w_j^\ell$ to $w_i^{\ell+1}$.
+
+Let's start by choosing $r_1^1, r_2^1$, such that $r_1^1 + r_2^1 \equiv 0\ (\text{mod}\ 2)$. Let's start by trying $r_1^1 = r_2^1 = 1$.
+
+The second level $r$'s, $r_1^2, r_2^2$, are related to the first level $r$'s via the matrix $D$: $r_j^\ell(D_{\ell+1})_{kj} = r_k^{\ell+1}$.
+
+We'll need to choose $D_2$ such that $r_1^2 + r_2^2\equiv 0\ (\text{mod}\ 4)$. In particular, this means we can't simply choose $(D_2)_{ij} = 1$, since this would give $r_1^2 + r_2^2 \equiv 2\ (\text{mod}\ 4)$. We could try, for instance, $D_2 = \begin{bmatrix}2 & 2 \\ 2 & 2\end{bmatrix}$.
+
+There's an additional constraint on $D_\ell$, namely $\sum_k (D_{\ell+1})_{ki}\equiv d_\ell\ (\text{mod}\ r_\ell)$. This constraint is indeed satisfied by our choice of $D_2$.
+
+This gives $r_1^2 = r_2^2 = 2$. Now we need to choose $D_3$ such that $r_1^3 + r_2^3 \equiv 0\ (\text{mod } 8)$, and
+$$
+(D_3)_{11} + (D_3)_{21}\equiv (D_3)_{12} + (D_3)_{22}\equiv 2\ (\text{mod}\ 4)
+$$
+Unfortunately here we run into a roadblock: since $r_1^3 = r_1^2(D_3)_{11} = 2(D_3)_{11}$, and similarly $r_2^3 = 2(D_3)_{21}$, the first condition says $(D_3)_{11} + (D_3)_{21} \equiv 0\ (\bmod 4)$, but the second condition requires that this be $\equiv 2\ (\bmod 4)$, which is impossible.
+
+**Question:** If $r_i^\ell = c_\ell$ for all $i$, will this *always* cause a problem at level $\ell + 2$?
+
+### Trying Again - Choosing a Different $D_2$
+
+Let's try $D_2 = \begin{bmatrix}2 & 2 \\ 6 & 6\end{bmatrix}$. Then $r_1^2 = (D_2)_{11}r_1^1 = (D_2)_{12}r_2^1 = 2$, and $r_2^2 = (D_2)_{21}r_1^1 = (D_2)_{22}r_2^2 = 6$. As desired, $r_1^2 + r_2^2\equiv 0\ (\bmod 4)$.
+
+Now we need $D_3$ such that
+$$
+(D_3)_{11}r_1^2 + (D_3)_{21}r_2^2\equiv 0\ (\bmod 8) \\
+(D_3)_{11} + (D_3)_{21}\equiv (D_3)_{12}+(D_3)_{22}\equiv 2\ (\bmod 4)
+$$
+
+### Trying Again - Choosing Different $r_i^1$'s
+
+One thing we can try differently is $r_1^1 = 1$, $r_2^1 = 3$.
+
+Note that if we have even a single $r_i^\ell = 0$ for some $i, \ell$, then every $r_j^{\ell+1}=0$ for all $j$ since $r_j^{\ell+1} = (D_{\ell+1})_{ji}r_i^\ell = 0$. While it is possible that this makes sense according to the constraints on the $r$'s and $D$'s, having all $r$'s zero is problematic for our Bratelli diagram since it implies none of the $v$ edges connect to any of the $w$ edges in the following layer, which is necessary in order for our construction to work. So we need to choose $r_1^1$ and $r_2^1$ to be (likely different) odd numbers.
+
+Now we have to choose $D_2$. Notice that $(D_2)_{ki}/(D_2)_{kj} = r_j^1/r_i^1$ is *constant* in $k$. In fact, if we start by choosing $(D_2)_{k1}$, then $(D_2)_{k2} = \frac{r_1^1}{r_2^1}(D_2)_{k1} = (D_2)_{k1}/3$. In other words, the first column of $D_2$ consists of multiples of $3$. We could try, for example, $D_2 = \begin{bmatrix} 3 & 1 \\ 3 & 1\end{bmatrix}$. Then
+$$
+(D_2)_{11} + (D_2)_{21}\equiv 6\equiv 2\ (\bmod 2) \\
+(D_2)_{12} + (D_2)_{22}\equiv 2\ (\bmod 2)
+$$
+so this choice of $D_2$ satisfies the desired constraints. 
+
+### General Procedure
+
+Given $r_1^{\ell-1}, r_2^{\ell-1}$, satisfying $r_1^{\ell-1} + r_2^{\ell-1}\equiv 0\ (\bmod 2^{\ell-1})$, we need to find $D_{\ell}$ such that
+$$
+(D_{\ell})_{11}r_1^{\ell-1} = (D_{\ell})_{12}r_2^{\ell-1},\qquad (D_{\ell})_{21}r_1^{\ell-1} = (D_{\ell})_{22}r_2^{\ell-1} \\
+(D_{\ell})_{11}r_1^{\ell-1} + (D_{\ell})_{22}r_2^{\ell-1} \equiv 0\ (\bmod 2^\ell) \\
+(D_{\ell})_{11} + (D_{\ell})_{21}\equiv 2\ (\bmod 2^\ell) \\
+(D_{\ell})_{12} + (D_{\ell})_{22} \equiv 2\ (\bmod 2^\ell)
+$$
+In which case $r_1^\ell = (D_\ell)_{11}r_1^{\ell-1}$ and $r_2^\ell = (D_\ell)_{22}r_2^{\ell-1}$, and we repeat the procedure inductively. The third condition above is the requirement that $r_1^\ell + r_2^\ell \equiv 0\ (\bmod 2^\ell)$, but written so as to look "diagonal".
+
+Let us, for the time being, denote $D_\ell = \begin{bmatrix}A & B \\ C & D\end{bmatrix}$, and $x_i = r_i^{\ell-1}$, to get rid of the sub/superscripts. The first two conditions tell us that
+$$
+Ax_1 = Bx_2,\qquad Cx_1 = Dx_2
+$$
+Suppose we start by choosing $A$ and $C$. Then $B = Ax_1/x_2$, which tells us that $Ax_1\equiv 0\ (\bmod x_2)$, and similarly $D = Cx_1/x_2$, with $Cx_1\equiv 0\ (\bmod x_2)$. Substituting these formulas for $B$ and $D$ give
+$$
+Ax_1 + Cx_1\equiv 0\pmod{2^\ell} \\
+A+C\equiv 2\pmod{2^\ell} \\
+Ax_1/x_2 + Cx_1/x_2\equiv 2\pmod{2^\ell}
+$$
+Of course, the second equation can be substituted into the first and the third to yield:
+$$
+2x_1\equiv 0\pmod{2^\ell},\qquad A+C\equiv 2\pmod{2^\ell},\qquad 2x_1/x_2\equiv 2\pmod{2^\ell}
+$$
+The first equation is equivalent to $x_1\equiv 0\pmod{2^{\ell-1}}$. Of course, we had initially required that $x_1 + x_2\equiv 0\pmod{2^{\ell-1}}$, and so we must also have $x_2\equiv 0\pmod{2^{\ell-1}}$. 
+
+Let us write $x_i = 2^{\ell-1+m_i}y_i$, for $i = 1, 2$, with $2\nmid y_i$. The third equation then reads
+$$
+2^{m_1-m_2+1}y_1/y_2\equiv 2\pmod{2^\ell}
+$$
+ but since $2\nmid y_2$, we must have $y_2\mid y_1$, so $y_1 = ky_2$, from which the equation reads
+$$
+2^{n+1}k\equiv2\pmod{2^\ell}
+$$
+where $n = m_1 - m_2$, or equivalently
+$$
+2^nk\equiv 1\pmod{2^{\ell-1}}
+$$
+which, assuming $\ell > 1$, is only solvable for $n = 0$. So $x_1 = 2^{\ell-1+m}ak$, $x_2 = 2^{\ell-1+m}a$, for some $m\ge0$ and $k\equiv 1\pmod{2^{\ell-1}}$, and $2\nmid a$.
+
+
+
